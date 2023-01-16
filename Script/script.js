@@ -12,8 +12,8 @@ const pathCharacter = '*';
  */
 
 class Field {
-    constructor(hatAndHoles, field) {
-        this._field = field;
+    constructor(hatAndHoles, displayField) {
+        this._displayField = displayField;
         this._hatAndHoles = hatAndHoles;
     }
 
@@ -24,8 +24,56 @@ class Field {
     playGame() {
         let y = 0;
         let x = 0;
-        this.print(this._field);
-    }
+        this.print(this._displayField);
+
+        while (this._hatAndHoles[y][x] === pathCharacter || this._hatAndHoles[y][x] === fieldCharacter) {
+            const direction = prompt('Which direction you like to move? N S E W');
+
+            if (direction) {
+                if (direction === 'N' || direction === 'S' || direction === 'W' || direction === 'E') {
+                    if (direction === 'N') {
+                        if (y === 0) {
+                            console.log('Out of bounds.');
+                        } else {
+                            y -= 1;
+                        }
+                    } else if (direction === 'S') {
+                        if (y === this._displayField.length) {
+                            console.log('Out of bounds.');
+                        } else {
+                            y += 1;
+                        }
+                    } else if (direction === 'E') {
+                        if (x === this._displayField[y].length) {
+                            console.log('Out of bounds.');    
+                        } else {
+                            x += 1;
+                        }  
+                    } else if (direction === 'W') {
+                        if (x === 0) {
+                            console.log('Out of bounds');
+                        } else {
+                            x -= 0;
+                        }
+                    } else {
+                        console.log('Invalid input.');
+                    }
+                    
+                    if (this._hatAndHoles[y][x] === hat) {
+                        console.log('You found the hat!');
+                    } else if (this._hatAndHoles[y][x] === hole) {
+                        console.log('You fell in a hole, game over!');
+                    } else {
+                        this._displayField[y][x] = pathCharacter;
+                        this.print(this._displayField);
+                    }  
+                }
+            }
+            }
+
+                
+        }
+    
 
     /**
      * print - method 
@@ -34,8 +82,8 @@ class Field {
      */
 
     print() {
-        for (let row of this._field) {
-            console.log(row.join(' '));
+        for (let row of this._displayField) {
+            console.log(row.join('\n'));
         }
     }
 
@@ -96,12 +144,16 @@ class Field {
 
 let myField;
 
-const newField = Field.generateField(5, 5, 3);
+const blankField = Field.generateBlankField(5,5);
 
-const newBlankField = Field.generateBlankField(5,5);
+const newField = Field.generateField(5, 5, 1);
+console.log(blankField.join('\n'));
 
-console.log(newField.join('\n'));
+myField = new Field (newField, blankField);
 
-console.log(newBlankField.join('\n'));
+myField.playGame();
+
+
+
 
 
