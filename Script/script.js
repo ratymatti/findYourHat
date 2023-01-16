@@ -1,4 +1,6 @@
-const prompt = require('prompt-sync')({sigint: true});
+/**
+ * Find Your Hat - Console Game
+ */
 
 const hat = '^';
 const hole = 'O';
@@ -23,5 +25,17 @@ class Field {
         let y = 0;
         let x = 0;
         this.print(this._field);
+    }
+
+    /**
+     * print - method 
+     * 
+     * used to print game field
+     */
+
+    print() {
+        for (let row of this._field) {
+            console.log(row.join(' '));
+        }
     }
 }
