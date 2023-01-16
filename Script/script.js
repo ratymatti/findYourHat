@@ -53,15 +53,38 @@ class Field {
         }
         
         newField[0][0] = pathCharacter;
+        
+        let hatX = 0;
+        let hatY = 0;
 
+        do {
+            hatX = Math.floor(Math.random() * width);
+            hatY = Math.floor(Math.random() * height); 
+        }
+        while (hatX === 0 || hatY === 0); 
+
+        newField[hatY][hatX] = hat;
+        
+        for (let k = holes; k > 0; k--) {
+            let holeX = hatX;
+            let holeY = hatY;
+
+            do {
+                holeX = Math.floor(Math.random() * width);
+                holeY = Math.floor(Math.random() * height);
+            }
+            while (holeX === hatX || holeX === 0 || holeY === hatY || holeY === 0 || newField[holeY][holeX] === hole)
+
+            newField[holeY][holeX] = hole;
+        }
         return newField;
     }
 }
 
 let myField;
 
-const newField = Field.generateField(5, 5, 1);
+const newField = Field.generateField(5, 5, 3);
 
-//console.log(newField);
+console.log(newField.join('\n'));
 
 
