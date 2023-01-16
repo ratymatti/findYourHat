@@ -79,12 +79,29 @@ class Field {
         }
         return newField;
     }
+
+    static generateBlankField(height, width) {
+        let newField = [];
+        for (let i = 0; i < height; i++) {
+            newField.push([]);
+            for (let j = 0; j < height; j++) {
+                newField[i].push(fieldCharacter);
+            }
+        }
+        
+        newField[0][0] = pathCharacter;
+        return newField;    
+    }
 }
 
 let myField;
 
 const newField = Field.generateField(5, 5, 3);
 
+const newBlankField = Field.generateBlankField(5,5);
+
 console.log(newField.join('\n'));
+
+console.log(newBlankField.join('\n'));
 
 
