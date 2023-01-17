@@ -8,7 +8,7 @@ const fieldCharacter = '░';
 const pathCharacter = '*';
 
 /**
- * Field Class
+ * Class Field
  */
 
 class Field {
@@ -18,7 +18,9 @@ class Field {
     }
 
     /**
-     * playGame - method that displays game area and handles players movement 
+     * Method playGame()
+     * 
+     * Handles game events
      */
 
     playGame() {
@@ -33,25 +35,25 @@ class Field {
                 if (direction === 'N' || direction === 'S' || direction === 'W' || direction === 'E') {
                     if (direction === 'N') {
                         if (y === 0) {
-                            console.log('Out of bounds.');
+                            console.log(`Out of bounds, you can't move further North.`);
                         } else {
                             y -= 1;
                         }
                     } else if (direction === 'S') {
-                        if (y === this._displayField.length) {
-                            console.log('Out of bounds.');
+                        if (y === this._displayField.length -1) {
+                            console.log(`Out of bounds, you can't move further South.`);
                         } else {
                             y += 1;
                         }
                     } else if (direction === 'E') {
-                        if (x === this._displayField[y].length) {
-                            console.log('Out of bounds.');    
+                        if (x === this._displayField[y].length -2) {
+                            console.log(`Out of bounds, you can't move further East.`);    
                         } else {
                             x += 1;
                         }  
                     } else if (direction === 'W') {
                         if (x === 0) {
-                            console.log('Out of bounds');
+                            console.log(`Out of bounds, you can't move further West.`);
                         } else {
                             x -= 1;
                         }
@@ -61,10 +63,14 @@ class Field {
                         this._displayField[y][x] = hat;
                         this.print(this._displayField);
                         console.log('You found the hat!');
+                        console.log('Type newGame() if you want to play new game.');
+                        break;
                     } else if (this._hatAndHoles[y][x] === hole) {
                         this._displayField[y][x] = hole;
                         this.print(this._displayField);
                         console.log('You fell in a hole, game over!');
+                        console.log('Type newGame() if you want to play new game.');
+                        break;
                     } else {
                         this._displayField[y][x] = pathCharacter;
                         this.print(this._displayField);      
@@ -77,11 +83,10 @@ class Field {
         }       
     };
     
-
     /**
-     * print - method 
+     * Method print()
      * 
-     * used to print game field
+     * used for printing game field
      */
 
     print() {
@@ -91,7 +96,9 @@ class Field {
     };
 
     /**
-     * generateField - method 
+     * Static Method generateField()
+     * 
+     * Generates game area which contains the hat and holes, not visible for player.
      */
 
     static generateField(height, width, holes) {
@@ -132,11 +139,11 @@ class Field {
     };
 
     /**
-     * generateBlankField - static method
+     * Static Method generateBlankField()
      * 
      * @param {*} height 
      * @param {*} width 
-     * @returns blank game area that is visible to player
+     * @returns blank game area that is visible to player.
      */
 
     static generateBlankField(height, width) {
@@ -147,7 +154,7 @@ class Field {
             for (let j = 0; j < width; j++) {
                 newField[i].push(fieldCharacter);
             }
-            
+
             newField[i].push(i);
         }
         newField[0][0] = pathCharacter;
@@ -155,19 +162,17 @@ class Field {
     };
 };
 
-let myField;
 
-const blankField = Field.generateBlankField(5,5);
+function newGame() {
+    let myField;
 
-const newField = Field.generateField(5, 5, 1);
+    const blankField = Field.generateBlankField(5,5);
 
+    const newField = Field.generateField(5, 5, 1);
 
+    myField = new Field (newField, blankField);
 
-myField = new Field (newField, blankField);
+    return myField.playGame();
+}
 
-myField.playGame();
-
-
-
-
-
+newGame();
