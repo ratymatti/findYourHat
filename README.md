@@ -4,7 +4,7 @@
 You have lost your hat and now you need to find it. You can move
 in game area by typing compass points 'N', 'W', 'S' and 'E'. You have
 to type capitalized letters. There's also one trap in the game area,
-try to avoid falling to it. If you find your hat before falling in a 
+try to avoid falling to it. If you find your hat whitout falling in a 
 hole, you win!
 
 ## Instructions 
@@ -15,4 +15,4 @@ hole, you win!
 
 - Uncomment the prompt
 
-- Play the game
+- Play the game!
