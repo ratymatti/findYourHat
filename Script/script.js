@@ -18,7 +18,7 @@ class Field {
     }
 
     /**
-     * playGame - method
+     * playGame - method that displays game area and handles players movement 
      */
 
     playGame() {
@@ -29,7 +29,7 @@ class Field {
         while (this._hatAndHoles[y][x] === pathCharacter || this._hatAndHoles[y][x] === fieldCharacter) {
             const direction = prompt('Which direction you like to move? N S E W');
 
-            if (direction) {
+            if (direction === direction.toUpperCase()) {
                 if (direction === 'N' || direction === 'S' || direction === 'W' || direction === 'E') {
                     if (direction === 'N') {
                         if (y === 0) {
@@ -53,26 +53,29 @@ class Field {
                         if (x === 0) {
                             console.log('Out of bounds');
                         } else {
-                            x -= 0;
+                            x -= 1;
                         }
-                    } else {
-                        console.log('Invalid input.');
                     }
                     
                     if (this._hatAndHoles[y][x] === hat) {
+                        this._displayField[y][x] = hat;
+                        this.print(this._displayField);
                         console.log('You found the hat!');
                     } else if (this._hatAndHoles[y][x] === hole) {
+                        this._displayField[y][x] = hole;
+                        this.print(this._displayField);
                         console.log('You fell in a hole, game over!');
                     } else {
                         this._displayField[y][x] = pathCharacter;
-                        this.print(this._displayField);
+                        this.print(this._displayField);      
                     }  
                 }
-            }
-            }
 
-                
-        }
+            } else {
+                console.log(`Invalid input. Input must be 'N', 'W', 'S' or 'E'.`);
+            }
+        }       
+    };
     
 
     /**
@@ -83,9 +86,9 @@ class Field {
 
     print() {
         for (let row of this._displayField) {
-            console.log(row.join('\n'));
+            console.log(row.join(' '));
         }
-    }
+    };
 
     /**
      * generateField - method 
@@ -126,28 +129,39 @@ class Field {
             newField[holeY][holeX] = hole;
         }
         return newField;
-    }
+    };
+
+    /**
+     * generateBlankField - static method
+     * 
+     * @param {*} height 
+     * @param {*} width 
+     * @returns blank game area that is visible to player
+     */
 
     static generateBlankField(height, width) {
         let newField = [];
+
         for (let i = 0; i < height; i++) {
             newField.push([]);
-            for (let j = 0; j < height; j++) {
+            for (let j = 0; j < width; j++) {
                 newField[i].push(fieldCharacter);
             }
+            
+            newField[i].push(i);
         }
-        
         newField[0][0] = pathCharacter;
         return newField;    
-    }
-}
+    };
+};
 
 let myField;
 
 const blankField = Field.generateBlankField(5,5);
 
 const newField = Field.generateField(5, 5, 1);
-console.log(blankField.join('\n'));
+
+
 
 myField = new Field (newField, blankField);
 
