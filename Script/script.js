@@ -119,7 +119,7 @@ class Field {
             hatX = Math.floor(Math.random() * width);
             hatY = Math.floor(Math.random() * height); 
         }
-        while (hatX === 0 || hatY === 0); 
+        while (hatX === 0 && hatY === 0); 
 
         newField[hatY][hatX] = hat;
         
@@ -131,7 +131,7 @@ class Field {
                 holeX = Math.floor(Math.random() * width);
                 holeY = Math.floor(Math.random() * height);
             }
-            while (holeX === hatX || holeX === 0 || holeY === hatY || holeY === 0 || newField[holeY][holeX] === hole)
+            while (holeX === hatX && holeY === hatY  || newField[holeY][holeX] === hole)
 
             newField[holeY][holeX] = hole;
         }
