@@ -29,29 +29,29 @@ class Field {
         this.print(this._displayField);
 
         while (this._hatAndHoles[y][x] === pathCharacter || this._hatAndHoles[y][x] === fieldCharacter) {
-            const direction = prompt('Which direction you like to move? N S E W');
+            const direction = prompt('Which direction you like to move? n s w e');
 
-            if (direction === direction.toUpperCase()) {
-                if (direction === 'N' || direction === 'S' || direction === 'W' || direction === 'E') {
-                    if (direction === 'N') {
+            if (direction) {
+                if (direction.toLowerCase() === 'n' || direction.toLowerCase() === 's' || direction.toLowerCase() === 'w' || direction.toLowerCase() === 'e') {
+                    if (direction === 'n') {
                         if (y === 0) {
                             console.log(`Out of bounds, you can't move further North.`);
                         } else {
                             y -= 1;
                         }
-                    } else if (direction === 'S') {
+                    } else if (direction === 's') {
                         if (y === this._displayField.length -1) {
                             console.log(`Out of bounds, you can't move further South.`);
                         } else {
                             y += 1;
                         }
-                    } else if (direction === 'E') {
+                    } else if (direction === 'e') {
                         if (x === this._displayField[y].length -2) {
                             console.log(`Out of bounds, you can't move further East.`);    
                         } else {
                             x += 1;
                         }  
-                    } else if (direction === 'W') {
+                    } else if (direction === 'w') {
                         if (x === 0) {
                             console.log(`Out of bounds, you can't move further West.`);
                         } else {
@@ -78,7 +78,7 @@ class Field {
                 }
 
             } else {
-                console.log(`Invalid input. Input must be 'N', 'W', 'S' or 'E'.`);
+                console.log(`Invalid input. Input must be 'n', 'w', 's' or 'e'.`);
             }
         }       
     };
