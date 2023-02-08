@@ -175,4 +175,4 @@ function newGame() {
     return myField.playGame();
 }
 
-console.log('Type newGame() to play a game!');
+console.log(`Type 'newGame()' to play the game!`);
